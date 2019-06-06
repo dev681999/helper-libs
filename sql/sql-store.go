@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/mysql" // driver import
 )
 
 // ErrSessionNil means session is nil
@@ -30,7 +30,7 @@ func (s *Store) GetSession() (*gorm.DB, error) {
 
 // Connect connects the db
 func (s *Store) Connect() error {
-	url := fmt.Sprintf("%s:%s@/%s", s.Username, s.Password, s.Database)
+	url := fmt.Sprintf("%s:%s@/%s?charset=utf8&parseTime=True&loc=Local", s.Username, s.Password, s.Database)
 	db, err := gorm.Open("mysql", url)
 	if err != nil {
 		return err
